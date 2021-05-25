@@ -12,12 +12,12 @@ publishing {
     }
 
     publications {
-        vivo(MavenPublication) {
+        component(MavenPublication) {
             groupId 'com.mizhousoft.androidx'
             artifactId 'tencent-lite-player'
-            version '8.6.10097'
+            version '8.7.10102'
 
-            artifact '3rdparty-libs/LiteAVSDK_Player_8.6.10097.aar'
+            artifact '3rdparty-libs/LiteAVSDK_Player_8.7.10102.aar'
         }
     }
 }

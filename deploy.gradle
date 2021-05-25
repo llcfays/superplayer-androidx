@@ -4,10 +4,10 @@ apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "${releaseRepoUrl}") {
+            repository(url: "${snapshotRepoUrl}") {
                 authentication(
-                        userName: "${releaseGradleUsername}",
-                        password: "${releaseGradlePassword}"
+                        userName: "${snapshotGradleUsername}",
+                        password: "${snapshotGradlePassword}"
                 )
             }
 

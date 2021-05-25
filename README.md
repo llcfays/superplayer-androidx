@@ -4,6 +4,6 @@
 
 2. 上传第三方依赖组件，执行命令 gradlew publish
 
-3. 上传push， 执行命令 gradlew task uploadArchives
+3. 上传组件， 执行命令 gradlew task uploadArchives
 
 4. 查看第三方依赖：gradlew :library:dependencies
