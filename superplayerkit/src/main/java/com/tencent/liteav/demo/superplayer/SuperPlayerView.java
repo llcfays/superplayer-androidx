@@ -340,6 +340,9 @@ public class SuperPlayerView extends RelativeLayout {
                 if (mLayoutParamFullScreenMode == null) {
                     return;
                 }
+                if (mPlayerViewCallback != null) {
+                    mPlayerViewCallback.onPrepareFullScreenPlay();
+                }
                 removeView(mWindowPlayer);
                 addView(mFullScreenPlayer, mVodControllerFullScreenParams);
                 setLayoutParams(mLayoutParamFullScreenMode);
@@ -475,6 +478,10 @@ public class SuperPlayerView extends RelativeLayout {
                     mWatcher.stop();
                 }
             }
+
+            if (mPlayerViewCallback != null) {
+                mPlayerViewCallback.onPause();
+            }
         }
 
         @Override
@@ -483,6 +490,10 @@ public class SuperPlayerView extends RelativeLayout {
                 mSuperPlayer.reStart();
             } else if (mSuperPlayer.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE) { //继续播放
                 mSuperPlayer.resume();
+            }
+
+            if (mPlayerViewCallback != null) {
+                mPlayerViewCallback.onResume();
             }
         }
 
@@ -611,6 +622,11 @@ public class SuperPlayerView extends RelativeLayout {
     public interface OnSuperPlayerViewCallback {
 
         /**
+         * 准备开始全屏播放
+         */
+        void onPrepareFullScreenPlay();
+
+        /**
          * 开始全屏播放
          */
         void onStartFullScreenPlay();
@@ -634,6 +650,16 @@ public class SuperPlayerView extends RelativeLayout {
          * 开始悬浮窗播放
          */
         void onStartFloatWindowPlay();
+
+        /**
+         * 播放暂停回调
+         */
+        void onPause();
+
+        /**
+         * 播放继续回调
+         */
+        void onResume();
     }
 
     public void release() {
