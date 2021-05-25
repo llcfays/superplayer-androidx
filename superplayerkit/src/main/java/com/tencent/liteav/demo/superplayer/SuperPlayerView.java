@@ -480,7 +480,7 @@ public class SuperPlayerView extends RelativeLayout {
             }
 
             if (mPlayerViewCallback != null) {
-                mPlayerViewCallback.onPausePlay();
+                mPlayerViewCallback.onPlayPause();
             }
         }
 
@@ -490,13 +490,13 @@ public class SuperPlayerView extends RelativeLayout {
                 mSuperPlayer.reStart();
 
                 if (mPlayerViewCallback != null) {
-                    mPlayerViewCallback.onRestartPlay();
+                    mPlayerViewCallback.onPlayRestart();
                 }
             } else if (mSuperPlayer.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE) { //继续播放
                 mSuperPlayer.resume();
 
                 if (mPlayerViewCallback != null) {
-                    mPlayerViewCallback.onResumePlay();
+                    mPlayerViewCallback.onPlayResume();
                 }
             }
         }
@@ -656,24 +656,29 @@ public class SuperPlayerView extends RelativeLayout {
         void onStartFloatWindowPlay();
 
         /**
+         * 播放开始
+         */
+        void onPlayBegin();
+
+        /**
          * 播放暂停回调
          */
-        void onPausePlay();
+        void onPlayPause();
 
         /**
          * 播放继续回调
          */
-        void onResumePlay();
+        void onPlayResume();
 
         /**
          * 重播回调
          */
-        void onRestartPlay();
+        void onPlayRestart();
 
         /**
          * 播放停止
          */
-        void onEndPlay();
+        void onPlayEnd();
     }
 
     public void release() {
@@ -734,6 +739,10 @@ public class SuperPlayerView extends RelativeLayout {
             if (mWatcher != null) {
                 mWatcher.exitLoading();
             }
+
+            if(mPlayerViewCallback != null){
+                mPlayerViewCallback.onPlayBegin();
+            }
         }
 
         @Override
@@ -752,7 +761,7 @@ public class SuperPlayerView extends RelativeLayout {
             }
 
             if(mPlayerViewCallback != null){
-                mPlayerViewCallback.onEndPlay();
+                mPlayerViewCallback.onPlayEnd();
             }
         }
 
