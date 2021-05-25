@@ -1,5 +1,5 @@
 ext {
     libraryGroup = 'com.mizhousoft.androidx'
     libraryArtifactId = "superplayerkit"
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
 }

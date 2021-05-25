@@ -480,7 +480,7 @@ public class SuperPlayerView extends RelativeLayout {
             }
 
             if (mPlayerViewCallback != null) {
-                mPlayerViewCallback.onPause();
+                mPlayerViewCallback.onPausePlay();
             }
         }
 
@@ -488,12 +488,16 @@ public class SuperPlayerView extends RelativeLayout {
         public void onResume() {
             if (mSuperPlayer.getPlayerState() == SuperPlayerDef.PlayerState.END) { //重播
                 mSuperPlayer.reStart();
+
+                if (mPlayerViewCallback != null) {
+                    mPlayerViewCallback.onRestartPlay();
+                }
             } else if (mSuperPlayer.getPlayerState() == SuperPlayerDef.PlayerState.PAUSE) { //继续播放
                 mSuperPlayer.resume();
-            }
 
-            if (mPlayerViewCallback != null) {
-                mPlayerViewCallback.onResume();
+                if (mPlayerViewCallback != null) {
+                    mPlayerViewCallback.onResumePlay();
+                }
             }
         }
 
@@ -654,12 +658,22 @@ public class SuperPlayerView extends RelativeLayout {
         /**
          * 播放暂停回调
          */
-        void onPause();
+        void onPausePlay();
 
         /**
          * 播放继续回调
          */
-        void onResume();
+        void onResumePlay();
+
+        /**
+         * 重播回调
+         */
+        void onRestartPlay();
+
+        /**
+         * 播放停止
+         */
+        void onEndPlay();
     }
 
     public void release() {
@@ -735,6 +749,10 @@ public class SuperPlayerView extends RelativeLayout {
             // 清空关键帧和视频打点信息
             if (mWatcher != null) {
                 mWatcher.stop();
+            }
+
+            if(mPlayerViewCallback != null){
+                mPlayerViewCallback.onEndPlay();
             }
         }
 
